@@ -1,0 +1,36 @@
+﻿@using Domain
+@using Domain.UseCases
+@using Domain.Web
+@using MediatR
+
+@attribute [Route(BlazorAppUrlBuilder.ProjectDetailsTemplate)]
+@attribute [Authorize]
+
+<a href="@BlazorAppUrlBuilder.BuildWebFormsAppUrl(WebFormsAppPaths.ProjectsPath)">Back</a>
+@if (Project is not null) {
+    <p>Project name: @Project.Name</p>
+}
+else {
+    <p>Loading</p>
+}
+
+@code {
+
+    private ProjectDetailsDto? Project { get; set; }
+
+    [Inject]
+    private IMediator Mediator { get; set; } = null!;
+
+    [Inject]
+    private BlazorAppUrlBuilder BlazorAppUrlBuilder { get; set; } = null!;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Project = await Mediator.Send(new GetProjectsByIdQuery(Id));
+        
+        await base.OnInitializedAsync();
+    }
+}
