@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# WebAssembly publishing folder
+**/Web/*.styles.css
+**/Web/_content/
+**/Web/_framework/
+**/Web/components/

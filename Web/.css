@@ -1,0 +1,21 @@
+/* /Components/AppHeader.razor.rz.scp.css */
+
+/*The empty document space that the header with absolute positioning will occupy.*/
+.header-wrapper[b-cocymuwspo] {
+    --header-height: 50px;
+    height: var(--header-height);
+}
+
+[b-cocymuwspo] .header {
+    height: var(--header-height);
+}
+
+[b-cocymuwspo] .header-container {
+    width: 100%
+}
+
+[b-cocymuwspo] .logo {
+  width: 155px;
+}
+
+/*# sourceMappingURL=AppHeader.razor.css.map */

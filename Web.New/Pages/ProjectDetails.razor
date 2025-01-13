@@ -1,0 +1,39 @@
+﻿@using Common
+@using Common.UseCases
+@using Common.Web
+@using MediatR
+
+@attribute [Route(NewAppPaths.ProjectDetailsTemplate)]
+@attribute [Authorize]
+
+<MudLink Href="@BlazorAppUrlBuilder.BuildLegacyAppUrl(LegacyAppPaths.ProjectsPath)">Back</MudLink>
+
+@if (Project is not null) 
+{
+    <p>Project name: @Project.Name</p>
+}
+else 
+{
+    <p>Loading</p>
+}
+
+@code {
+
+    private ProjectDetailsDto? Project { get; set; }
+
+    [Inject]
+    private IMediator Mediator { get; set; } = null!;
+
+    [Inject]
+    private AppUrlBuilder BlazorAppUrlBuilder { get; set; } = null!;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Project = await Mediator.Send(new GetProjectsByIdQuery(Id));
+        
+        await base.OnInitializedAsync();
+    }
+}

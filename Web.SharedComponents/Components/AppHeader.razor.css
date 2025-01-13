@@ -1,0 +1,20 @@
+
+/*The empty document space that the header with absolute positioning will occupy.*/
+.header-wrapper {
+    --header-height: 50px;
+    height: var(--header-height);
+}
+
+::deep .header {
+    height: var(--header-height);
+}
+
+::deep .header-container {
+    width: 100%
+}
+
+::deep .logo {
+  width: 155px;
+}
+
+/*# sourceMappingURL=AppHeader.razor.css.map */

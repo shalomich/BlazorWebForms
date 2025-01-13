@@ -1,0 +1,24 @@
+﻿<div class="header-wrapper">
+    <MudAppBar Class="header">
+        <MudStack Row="true"
+                  Justify="Justify.SpaceBetween"
+                  AlignItems="AlignItems.Center"
+                  Class="header-container">
+            <MudStack Row="true"
+                      Spacing="4"
+                      AlignItems="AlignItems.Center">
+                <MudImage Src="/components/images/eternal-me-logo.png"
+                          Class="logo" />
+                <MudText>App Title</MudText>
+            </MudStack>
+            @if (IsAuthenticated)
+            {
+                <MudButton Href="@LogoutPath"
+                           Color="Color.Primary"
+                           Variant="Variant.Filled">
+                    Logout
+                </MudButton>
+            }
+        </MudStack>
+    </MudAppBar>
+</div>
