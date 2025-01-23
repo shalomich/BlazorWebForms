@@ -11,7 +11,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
-      - redis-storage:/var/lib/postgresql/data
+      - pg-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
@@ -27,13 +27,7 @@ services:
       - redis-storage:/data
     ports:
       - "6379:6379"
-    networks:
-      - internal
-
-networks:
-  internal:
-    driver: bridge
 
 volumes:
-  pgdata:
+  pg-data:
   redis-storage:
