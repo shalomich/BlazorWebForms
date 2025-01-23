@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Common.Entities;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
+using System;
 using System.Web;
 using System.Web.UI;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Web.Infrastructure;
-using Common.Entities;
 
 namespace Web
 {
@@ -33,6 +33,7 @@ namespace Web
             {
                 user = new ApplicationUser
                 {
+                    Id = $"{Guid.NewGuid()}",
                     UserName = username
                 };
 
@@ -48,7 +49,7 @@ namespace Web
 
             var userIdentity = userManager.CreateIdentity(user, "Identity.Application");
             authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
-        
+
             Response.Redirect("/");
         }
     }
