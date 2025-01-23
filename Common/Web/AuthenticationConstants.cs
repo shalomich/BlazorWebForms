@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Common.Web
+﻿namespace Common.Web
 {
     public static class AuthenticationConstants
     {
@@ -11,8 +7,5 @@ namespace Common.Web
         public const string AuthenticationType = "Identity.Application";
 
         public const string ApplicationName = "SharedCookieApp";
-
-        // TODO: Use Redis for storage.
-        public const string PersistKeysPath = @"C:\Users\User\Desktop\PersistKeys";
     }
 }

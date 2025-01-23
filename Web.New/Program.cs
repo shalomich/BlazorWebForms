@@ -1,9 +1,7 @@
-using Web.SharedComponents.Infrastructure;
 using Common.DI;
 using Common.Web;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
+using Web.New.Infrastructure.DI;
+using Web.SharedComponents.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +14,7 @@ DatabaseModule.Register(builder.Services, builder.Configuration);
 SystemModule.Register(builder.Services);
 ApplicationModule.Register(builder.Services, builder.Configuration);
 BlazorModule.Register(builder.Services);
+DataProtectionModule.Register(builder.Services, builder.Configuration);
 
 builder.Services.AddHttpContextAccessor();
 
@@ -27,27 +26,12 @@ builder.Services.AddAuthentication(AuthenticationConstants.AuthenticationType)
         options.Cookie.Path = "/";
     });
 
-builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo(AuthenticationConstants.PersistKeysPath))
-    .SetApplicationName(AuthenticationConstants.ApplicationName);
-
 builder.Services.AddCors(options => options.AddPolicy("AllowFrontend", builder => builder
     .AllowAnyOrigin()
     .AllowAnyHeader()
     .AllowAnyMethod()
     .SetPreflightMaxAge(TimeSpan.FromDays(1))
 ));
-
-// TODO: Use Redis for keys storage.
-//var redisConnection = builder.Configuration.GetConnectionString("Redis");
-
-//if (!string.IsNullOrEmpty(redisConnection))
-//{
-//    var redis = ConnectionMultiplexer.Connect(redisConnection);
-
-//    builder.Services.AddDataProtection()
-//        .PersistKeysToStackExchangeRedis(redis);
-//}
 
 builder.Services.AddCors(options => options.AddPolicy("AllowFrontend", builder => builder
     .AllowAnyOrigin()
