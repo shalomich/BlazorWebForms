@@ -1,0 +1,39 @@
+services:
+
+  ###
+  # Postgres main database
+  postgres-db:
+    hostname: blazor-postgres-db
+    container_name: blazor-postgres-db
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=blazor-webforms
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - redis-storage:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  ###
+  # Redis
+  redis_image:
+    hostname: redis-webforms
+    container_name: redis-webforms
+    image: redis:latest
+    restart: always
+    command: redis-server --save 20 1
+    volumes: 
+      - redis-storage:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
+
+volumes:
+  pgdata:
+  redis-storage:
