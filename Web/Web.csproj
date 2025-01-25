@@ -59,11 +59,14 @@
       <ContentFolder Include="$(WwwRootPath)\$(ContentFolder)\**\*" />
       <FrameworkFolder Include="$(WwwRootPath)\$(FrameworkFolder)\**\*" />
       <ComponentsFolder Include="$(WwwRootPath)\$(ComponentsFolder)\**\*" />
+      <AppSettings Include="$(WwwRootPath)\appsettings.json">
+      </AppSettings>
     </ItemGroup>
     <Copy SourceFiles="@(ContentFolder)" DestinationFolder=".\$(ContentFolder)\%(RecursiveDir)" />
     <Copy SourceFiles="@(FrameworkFolder)" DestinationFolder=".\$(FrameworkFolder)\%(RecursiveDir)" />
     <Copy SourceFiles="@(ComponentsFolder)" DestinationFolder=".\$(ComponentsFolder)\%(RecursiveDir)" />
     <Copy SourceFiles="$(WwwRootPath)\$(SharedComponentsProject).styles.css" DestinationFolder=".\" />
+    <Copy SourceFiles="@(AppSettings)" DestinationFolder=".\" />
     <RemoveDir Directories="$(PublishFolder)" />
   </Target>
   <ItemGroup>
@@ -340,7 +343,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
-    <Content Include="Logout.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Projects.aspx" />
@@ -382,6 +384,7 @@
     <Content Include="_framework\dotnet.js" />
     <Content Include="_framework\dotnet.native.hmanx9razn.js" />
     <Content Include="_framework\dotnet.runtime.o8gq1i8bk6.js" />
+    <Content Include="appsettings.json" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -567,13 +570,6 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Logout.aspx.cs">
-      <DependentUpon>Logout.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Logout.aspx.designer.cs">
-      <DependentUpon>Logout.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

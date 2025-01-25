@@ -1,4 +1,5 @@
-﻿using Common.DI;
+﻿using System;
+using Common.DI;
 using Microsoft.Extensions.Options;
 
 namespace Common.Web
@@ -15,13 +16,15 @@ namespace Common.Web
 
         public string BuildLegacyAppUrl(string path)
         {
-            return $"{appSettings.LegacyAppBasePath}{path}";
+            var baseUri = new Uri(appSettings.LegacyAppBasePath);
+            return new Uri(baseUri, path).ToString();
         }
 
 
         public string BuildNewAppUrl(string path)
         {
-            return $"{appSettings.NewAppBasePath}{path}";
+            var baseUri = new Uri(appSettings.NewAppBasePath);
+            return new Uri(baseUri, path).ToString();
         }
     }
 }

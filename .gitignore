@@ -367,3 +367,6 @@ FodyWeavers.xsd
 **/Web/_content/
 **/Web/_framework/
 **/Web/components/
+**/Web/appsettings.json
+
+**/Web.SharedComponents/wwwroot/appsettings.json

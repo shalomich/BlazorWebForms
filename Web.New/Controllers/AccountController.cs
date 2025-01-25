@@ -1,10 +1,10 @@
 ﻿using Common.Web;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.New.Controllers;
 
-[ApiController]
 public class AccountController : Controller
 {
     private readonly AppUrlBuilder blazorAppUrlBuilder;
@@ -15,7 +15,8 @@ public class AccountController : Controller
         this.blazorAppUrlBuilder = blazorAppUrlBuilder;
     }
 
-    [HttpGet(NewAppPaths.Logout)]
+    [HttpPost(NewAppPaths.Logout)]
+    [Authorize]
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync();
