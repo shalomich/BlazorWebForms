@@ -2,9 +2,11 @@
 {
     public static class NewAppPaths
     {
-        public const string ProjectDetailsTemplate = "/projects/{id:int}";
+        public const string Logout = "logout";
 
-        public const string Logout = "Logout";
+        public const string Projects = "projects";
+
+        public const string ProjectDetailsTemplate = Projects + "/{id:int}";
 
         /// <inheritdoc/>
         public static string GetProjectDetails(int projectId)

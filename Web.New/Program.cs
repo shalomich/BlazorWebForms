@@ -2,8 +2,6 @@ using Web.SharedComponents.Infrastructure;
 using Common.DI;
 using Common.Web;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 

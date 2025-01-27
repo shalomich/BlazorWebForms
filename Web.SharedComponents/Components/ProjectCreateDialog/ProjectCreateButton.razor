@@ -1,0 +1,24 @@
+﻿@using Common.Dtos
+<MudButton ButtonType="ButtonType.Button"
+           Variant="Variant.Filled"
+           Color="Color.Primary"
+           OnClick="OpenProjectCreateDialog">
+    Create
+</MudButton>
+
+@code 
+{
+    [Inject]
+    private IDialogService DialogService { get; set; } = null!;
+
+    [Parameter]
+    public UserDto[] Users { get; set; } = [];
+
+    public async Task OpenProjectCreateDialog() 
+    {
+        await DialogService.ShowAsync<ProjectCreateDialog>("Create project", new DialogParameters()
+        {
+            ["Users"] = Users
+        });
+    }
+}

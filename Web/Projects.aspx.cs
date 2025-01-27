@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
+using Common.Dtos;
 using Common.UseCases;
 using Common.Web;
 using MediatR;
@@ -13,6 +15,8 @@ namespace Web
     {
         private readonly IMediator mediator;
         private readonly AppUrlBuilder blazorAppUrlBuilder;
+
+        public IEnumerable<UserDto> Users { get; private set; }
         public Projects()
         {
             var serviceProvider = LegacyServiceProvider.Create();
@@ -27,6 +31,8 @@ namespace Web
                 Redirect(LegacyAppPaths.LoginPath);
                 return;
             }
+
+            Users = await mediator.Send(new GetUsersQuery());
 
             var projects = await mediator.Send(new GetProjectsQuery());
 

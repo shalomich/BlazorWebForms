@@ -34,6 +34,7 @@ namespace Common.UseCases
                 {
                     Id = project.Id,
                     Name = project.Name,
+                    UserName = project.User.UserName
                 })
                 .FirstOrDefaultAsync(project => project.Id == request.Id, cancellationToken);
         }
@@ -43,5 +44,7 @@ namespace Common.UseCases
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public string UserName { get; set; }
     }
 }

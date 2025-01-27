@@ -6,16 +6,26 @@
 @attribute [Route(NewAppPaths.ProjectDetailsTemplate)]
 @attribute [Authorize]
 
-<MudLink Href="@BlazorAppUrlBuilder.BuildLegacyAppUrl(LegacyAppPaths.ProjectsPath)">Back</MudLink>
+<MudIconButton 
+    Href="@BlazorAppUrlBuilder.BuildLegacyAppUrl(LegacyAppPaths.ProjectsPath)" 
+    Icon="@Icons.Material.Filled.ArrowBack">
+    
+</MudIconButton>
 
-@if (Project is not null) 
-{
-    <p>Project name: @Project.Name</p>
-}
-else 
-{
-    <p>Loading</p>
-}
+<div class="container">
+    @if (Project is not null)
+    {
+        <div class="project">
+            <p>Project name: @Project.Name</p>
+            <p>Project user: @Project.UserName</p>
+        </div>
+    }
+    else
+    {
+        <MudProgressCircular />
+    }
+</div>
+
 
 @code {
 
