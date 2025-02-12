@@ -7,20 +7,20 @@
 // </автоматически создаваемое>
 //------------------------------------------------------------------------------
 
-namespace Web
+namespace WebForms.Projects
 {
 
 
-    public partial class Projects
+    public partial class update
     {
 
         /// <summary>
-        /// project_grid элемент управления.
+        /// name элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView project_grid;
+        protected global::System.Web.UI.WebControls.TextBox name;
     }
 }

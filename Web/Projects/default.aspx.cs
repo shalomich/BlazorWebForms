@@ -2,28 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using Common.Dtos;
+using Common.Entities;
 using Common.UseCases;
 using Common.Web;
 using MediatR;
 using Web.Infrastructure;
 
-namespace Web
+namespace WebForms.Projects
 {
-    public partial class Projects : System.Web.UI.Page
+    public partial class _default : System.Web.UI.Page
     {
         private readonly IMediator mediator;
         private readonly AppUrlBuilder blazorAppUrlBuilder;
 
         public IEnumerable<UserDto> Users { get; private set; }
-        public Projects()
+
+        public Func<int, string> GetDetailsPath { get; private set; }
+
+        public Func<int, string> GetUpdatePath { get; private set; }
+
+
+        public _default()
         {
             var serviceProvider = LegacyServiceProvider.Create();
 
             mediator = serviceProvider.GetRequiredService<IMediator>();
             blazorAppUrlBuilder = serviceProvider.GetRequiredService<AppUrlBuilder>();
         }
+
         protected async void Page_Load(object sender, EventArgs e)
         {
             if (!HttpContext.Current.User.Identity.IsAuthenticated)
@@ -31,6 +40,15 @@ namespace Web
                 Redirect(LegacyAppPaths.LoginPath);
                 return;
             }
+
+            if (IsPostBack)
+            {
+                return;
+            }
+
+            // TODO: Fix problem with LinkButton handlers.
+            GetDetailsPath = projectId => blazorAppUrlBuilder.BuildNewAppUrl(NewAppPaths.GetProjectDetails(projectId));
+            GetUpdatePath = projectId => LegacyAppPaths.ProjectUpdatePath(projectId);
 
             Users = await mediator.Send(new GetUsersQuery());
 
@@ -41,14 +59,6 @@ namespace Web
                 project_grid.DataSource = projects;
                 project_grid.DataBind();
             }
-        }
-
-        protected void OnDetailsLinkClick(object sender, CommandEventArgs e)
-        {
-            LinkButton button = (LinkButton)sender;
-            int projectId = Convert.ToInt32(button.CommandArgument);
-
-            Redirect(blazorAppUrlBuilder.BuildNewAppUrl(NewAppPaths.GetProjectDetails(projectId)));
         }
 
         private void Redirect(string url)

@@ -21,10 +21,16 @@ namespace Web.New.Controllers
             this.appUrlBuilder = appUrlBuilder;
         }
 
-        [HttpPost(NewAppPaths.Projects)]
-        public async Task<IActionResult> CreateProject(ProjectCreateDto project, CancellationToken cancellationToken)
+        [HttpPost(ApiPaths.CreateProject)]
+        public async Task CreateProject([FromBody] ProjectCreateDto project, CancellationToken cancellationToken)
         {
             await mediator.Send(new CreateProjectCommand(project), cancellationToken);
+        }
+
+        [HttpPost(ApiPaths.UpdateProjectTemplate)]
+        public async Task<IActionResult> UpdateProject(int id, ProjectUpdateDto project, CancellationToken cancellationToken)
+        {
+            await mediator.Send(new UpdateProjectCommand(id, project), cancellationToken);
 
             return Redirect(appUrlBuilder.BuildLegacyAppUrl(LegacyAppPaths.ProjectsPath));
         }

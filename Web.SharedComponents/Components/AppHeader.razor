@@ -1,4 +1,5 @@
 ﻿@using Common.Web
+
 <div class="header-wrapper">
     <MudAppBar Class="header">
         <MudStack Row="true"
@@ -14,13 +15,11 @@
             </MudStack>
             @if (IsAuthenticated)
             {
-                <form method="post" action="@AppUrlBuilder.BuildNewAppUrl(NewAppPaths.Logout)">
-                    <MudButton ButtonType="ButtonType.Submit"
-                               Color="Color.Primary"
-                               Variant="Variant.Filled">
-                        Logout
-                    </MudButton>
-                </form>
+                <MudButton Color="Color.Primary"
+                Variant="Variant.Filled"
+                OnClick="Logout">
+                    Logout
+                </MudButton>
             }
         </MudStack>
     </MudAppBar>
@@ -30,4 +29,26 @@
 {
     [Inject]
     private AppUrlBuilder AppUrlBuilder { get; set; } = null!;
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = null!;
+
+    [Inject]
+    private HttpClient HttpClient { get; set; } = null!; 
+
+    [Inject]
+    private MudTheme Theme { get; set; } = null!;
+
+    [Parameter]
+    public string LogoutPath { get; set; } = string.Empty;
+
+    [Parameter]
+    public bool IsAuthenticated { get; set; }
+
+    protected async Task Logout()
+    {
+        await HttpClient.PostAsync(ApiPaths.Logout, content: null);
+
+        NavigationManager.NavigateTo(AppUrlBuilder.BuildLegacyAppUrl(LegacyAppPaths.LoginPath), forceLoad: true);
+    }
 }

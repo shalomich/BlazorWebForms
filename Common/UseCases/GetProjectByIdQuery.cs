@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -34,9 +35,10 @@ namespace Common.UseCases
                 {
                     Id = project.Id,
                     Name = project.Name,
+                    EndDate = project.EndDate,
                     UserName = project.User.UserName
                 })
-                .FirstOrDefaultAsync(project => project.Id == request.Id, cancellationToken);
+                .FirstAsync(project => project.Id == request.Id, cancellationToken);
         }
     }
 
@@ -44,7 +46,7 @@ namespace Common.UseCases
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
+        public DateTime? EndDate { get; set; }
         public string UserName { get; set; }
     }
 }

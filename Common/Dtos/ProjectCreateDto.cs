@@ -1,25 +1,13 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Common.Dtos
 {
-    public class ProjectCreateDto : IValidatableObject
+    public class ProjectCreateDto
     {
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public string UserId { get; set; }
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            if (string.IsNullOrEmpty(Name))
-            {
-                yield return new ValidationResult("Name is required");
-            }
-
-            if (string.IsNullOrEmpty(UserId))
-            {
-                yield return new ValidationResult("User id is required");
-            }
-        }
     }
 }

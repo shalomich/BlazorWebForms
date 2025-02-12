@@ -2,43 +2,56 @@
 @using Common.Web
 @using System.ComponentModel.DataAnnotations
 <div class="dialog">
-    <form action="@AppUrlBuilder.BuildNewAppUrl(NewAppPaths.Projects)" 
-          method="post">
+    <EditForm Model="Model" OnValidSubmit="CreateProject">
+        <DataAnnotationsValidator />
         <MudStack Spacing="2">
             <MudTextField Label="Name *"
-                          Variant="Variant.Outlined"
-                          For="@(() => Model.Name)"
-                          name="@nameof(Model.Name)"
-                          @bind-Value="Model.Name"/>
+            Variant="Variant.Outlined"
+            For="@(() => Model.Name)"
+            @bind-Value="Model.Name"/>
             <MudSelect Label="User *"
-                       Variant="Variant.Outlined"
-                       For="@(() => Model.UserId)"
-                       name="@nameof(Model.UserId)"
-                       @bind-Value="Model.UserId">
+            Variant="Variant.Outlined"
+            For="@(() => Model.UserId)"
+            @bind-Value="Model.UserId">
                 @foreach (var user in Users)
                 {
                     <MudSelectItem Value="user.Id">@user.Name</MudSelectItem>
                 }
             </MudSelect>
             <MudButton ButtonType="ButtonType.Submit"
-                       Variant="Variant.Filled"
-                       Color="Color.Primary"
-                       Disabled="!IsValid">
+            Variant="Variant.Filled"
+            Color="Color.Primary">
                 Save
             </MudButton>
         </MudStack>
-    </form>
+    </EditForm>
 </div>
 
 @code 
 {
     private ProjectCreateDto Model { get; } = new();
 
-    private bool IsValid => Validator.TryValidateObject(Model, new(Model), []);
+    [Inject]
+    private HttpClient HttpClient { get; set; } = null!;
 
     [Inject]
-    private AppUrlBuilder AppUrlBuilder { get; set; } = null!;
+    private NavigationManager NavigationManager { get; set; } = null!;
+
+    [Inject]
+    private AppUrlBuilder AppUrlBuilder { get; init; } = null!;
+
+    [CascadingParameter]
+    private MudDialogInstance Dialog { get; set; } = null!;
 
     [Parameter]
     public IEnumerable<UserDto> Users { get; set; } = [];
+
+    private async Task CreateProject() 
+    {
+        await HttpClient.PostAsync(ApiPaths.CreateProject, JsonContent.Create(Model));
+
+        Dialog.Close();
+
+        NavigationManager.NavigateTo(AppUrlBuilder.BuildLegacyAppUrl(LegacyAppPaths.ProjectsPath), forceLoad: true);
+    }
 }

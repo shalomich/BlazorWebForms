@@ -6,6 +6,7 @@ using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Web.Infrastructure;
 using Common.Entities;
+using Common.Web;
 
 namespace Web
 {
@@ -33,20 +34,21 @@ namespace Web
             {
                 user = new ApplicationUser
                 {
+                    Id = Guid.NewGuid().ToString(),
                     UserName = username
                 };
 
                 var result = await userManager.CreateAsync(user, password);
 
-                if (!result.Succeeded)
+                if (!result.Succeeded) 
                 {
                     return;
-                }
+                }                
             }
 
             var authenticationManager = owinContext.Authentication;
 
-            var userIdentity = userManager.CreateIdentity(user, "Identity.Application");
+            var userIdentity = userManager.CreateIdentity(user, AuthenticationConstants.AuthenticationType);
             authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
         
             Response.Redirect("/");

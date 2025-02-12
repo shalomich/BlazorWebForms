@@ -2,16 +2,13 @@
 {
     public static class NewAppPaths
     {
-        public const string Logout = "logout";
-
-        public const string Projects = "projects";
-
-        public const string ProjectDetailsTemplate = Projects + "/{id:int}";
+        public const string IdTemplate = "{id:int}";
+        public const string ProjectDetailsTemplate = "projects/" + IdTemplate;
 
         /// <inheritdoc/>
         public static string GetProjectDetails(int projectId)
         {
-            return ProjectDetailsTemplate.Replace("{id:int}", projectId.ToString());
+            return ProjectDetailsTemplate.Replace(IdTemplate, projectId.ToString());
         }
     }
 }

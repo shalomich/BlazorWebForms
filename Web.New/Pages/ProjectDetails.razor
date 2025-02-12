@@ -8,9 +8,7 @@
 
 <MudIconButton 
     Href="@BlazorAppUrlBuilder.BuildLegacyAppUrl(LegacyAppPaths.ProjectsPath)" 
-    Icon="@Icons.Material.Filled.ArrowBack">
-    
-</MudIconButton>
+    Icon="@Icons.Material.Filled.ArrowBack"/>
 
 <div class="container">
     @if (Project is not null)
@@ -25,7 +23,6 @@
         <MudProgressCircular />
     }
 </div>
-
 
 @code {
 

@@ -7,20 +7,10 @@ namespace Web.New.Controllers;
 
 public class AccountController : Controller
 {
-    private readonly AppUrlBuilder blazorAppUrlBuilder;
-
-    public AccountController(
-        AppUrlBuilder blazorAppUrlBuilder)
-    {
-        this.blazorAppUrlBuilder = blazorAppUrlBuilder;
-    }
-
-    [HttpPost(NewAppPaths.Logout)]
+    [HttpPost(ApiPaths.Logout)]
     [Authorize]
-    public async Task<IActionResult> Logout()
+    public async Task Logout()
     {
         await HttpContext.SignOutAsync();
-
-        return Redirect(blazorAppUrlBuilder.BuildLegacyAppUrl(LegacyAppPaths.LoginPath));
     }
 }

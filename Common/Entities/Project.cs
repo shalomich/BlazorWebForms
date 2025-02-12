@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Common.Entities
 {
@@ -11,6 +12,8 @@ namespace Common.Entities
         public ApplicationUser User { get; set; }
 
         public string UserId { get; set; }
+
+        public DateTime? EndDate { get; set; } 
 
         public ICollection<Developer> Developers { get; private set; } = new List<Developer>();
     }

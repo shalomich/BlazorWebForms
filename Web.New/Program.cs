@@ -2,18 +2,23 @@ using Web.SharedComponents.Infrastructure;
 using Common.DI;
 using Common.Web;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Components.Web;
+using Web.SharedComponents.Components;
+using Web.New;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
 builder.Services.AddControllers();
 
 DatabaseModule.Register(builder.Services, builder.Configuration);
 SystemModule.Register(builder.Services);
 ApplicationModule.Register(builder.Services, builder.Configuration);
 BlazorModule.Register(builder.Services);
+WebComponentsModule.Register(builder.Services, builder.Configuration);
 
 builder.Services.AddHttpContextAccessor();
 
@@ -48,7 +53,8 @@ builder.Services.AddCors(options => options.AddPolicy("AllowFrontend", builder =
 //}
 
 builder.Services.AddCors(options => options.AddPolicy("AllowFrontend", builder => builder
-    .AllowAnyOrigin()
+    .WithOrigins("https://localhost:44322")
+    .AllowCredentials()
     .AllowAnyHeader()
     .AllowAnyMethod()
     .SetPreflightMaxAge(TimeSpan.FromDays(1))));
@@ -64,6 +70,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseAuthentication();
+
+app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 

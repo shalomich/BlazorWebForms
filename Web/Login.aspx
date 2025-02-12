@@ -2,7 +2,7 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    <main>
+    <main style="display: flex; flex-direction: column; gap: 10px; justify-content:center; align-items: center">
         <div class="form-group">
             <label for="email_address">Email address:</label>
             <asp:TextBox ID="email_address" runat="server" CssClass="form-control" />

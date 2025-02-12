@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,10 +27,12 @@ namespace Common.UseCases
         public async Task<IEnumerable<ProjectDto>> Handle(GetProjectsQuery request, CancellationToken cancellationToken)
         {
             return await dbContext.Projects
+                .OrderByDescending(project => project.Id)
                 .Select(project => new ProjectDto
                 {
                     Id = project.Id,
                     Name = project.Name,
+                    EndDate = project.EndDate
                 })
                 .ToListAsync(cancellationToken);
         }
@@ -39,5 +42,6 @@ namespace Common.UseCases
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public DateTime? EndDate { get; set; }
     }
 }
