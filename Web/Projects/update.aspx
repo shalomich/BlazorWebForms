@@ -9,14 +9,18 @@
         </div>
         <div class="form-group">
             <label for="end-date">End date:</label>
-            <app-date-picker name="EndDate" id="end-date"></app-date-picker>
+            <app-date-picker id="end-date"></app-date-picker>
         </div>
         <button method="post" formaction='<%= UpdateProjectPath %>' class="btn btn-primary">Save</button>
         <script>
-            // TODO: Find a way to change a property without a timeout.
-            setTimeout(() => {
-                document.getElementById('end-date').value = <%= ProjectEndDateString %>;
-            }, 1000);
+            document.addEventListener('component-rendered', function(event) {
+                const datePickerId = 'end-date';
+                if (event.detail.id !== datePickerId) {
+                    return;
+                }
+                const datePicker = document.getElementById(datePickerId);
+                datePicker.value = <%= ProjectEndDateString %>;
+            });
         </script>
     </div>
 </asp:Content>

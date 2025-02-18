@@ -1,10 +1,9 @@
-﻿<MudDatePicker name="@Name" Date="Value" DateFormat="yyyy-MM-dd" />
+﻿@inherits WebComponentBase
+
+<MudDatePicker id="@Id" Date="Value" DateFormat="yyyy-MM-dd" />
 
 @code 
 {
-    [Parameter]
-    public string Name { get; set; } = string.Empty;
-
     [Parameter]
     public DateTime? Value { get; set; }
 }

@@ -1,3 +1,12 @@
 ﻿<MudThemeProvider />
 <MudDialogProvider />
 <MudPopoverProvider />
+
+<script>
+    function notifyComponentRendered(id) {
+        document.dispatchEvent(new CustomEvent('component-rendered', {
+            detail: { id }
+        }));
+    }
+</script>
+

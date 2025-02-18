@@ -1,5 +1,9 @@
 ﻿@using Common.Dtos
-<MudButton ButtonType="ButtonType.Button"
+
+@inherits WebComponentBase
+
+<MudButton id="@Id"
+           ButtonType="ButtonType.Button"
            Variant="Variant.Filled"
            Color="Color.Primary"
            OnClick="OpenProjectCreateDialog">
