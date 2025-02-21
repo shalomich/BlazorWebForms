@@ -2,7 +2,22 @@
 
 public partial class AppDataPicker : System.Web.UI.UserControl
 {
-    public DateTime? Date { get; set; }
+    public DateTime? Date
+    {
+        get
+        {
+            var dateValue = Request.Form[Name];
+            if (DateTime.TryParse(dateValue, out DateTime parsedDate))
+            {
+                return parsedDate;
+            }
+            return null;
+        }
+        set
+        {
+            ViewState["Date"] = value;
+        }
+    }
 
     public string Name { get; set; }
 
