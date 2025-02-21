@@ -7,6 +7,7 @@ using Web.SharedComponents.Components;
 using Web.New;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -21,6 +22,7 @@ BlazorModule.Register(builder.Services);
 WebComponentsModule.Register(builder.Services, builder.Configuration);
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpForwarder();
 
 // https://learn.microsoft.com/en-us/aspnet/core/security/cookie-sharing?view=aspnetcore-9.0#share-authentication-cookies-between-aspnet-4x-and-aspnet-core-apps
 builder.Services.AddAuthentication(AuthenticationConstants.AuthenticationType)
@@ -84,5 +86,20 @@ app.UseAuthorization();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 app.MapControllers();
+
+app.MapForwarder("/Scripts/{**catchAll}", configuration["App:LegacyAppBasePath"]).Add(static builder 
+    => ((RouteEndpointBuilder)builder).Order = 1);
+
+app.MapForwarder("/Content/{**catchAll}", configuration["App:LegacyAppBasePath"]).Add(static builder 
+    => ((RouteEndpointBuilder)builder).Order = 2);
+
+app.MapForwarder("/bundles/{**catchAll}", configuration["App:LegacyAppBasePath"]).Add(static builder 
+    => ((RouteEndpointBuilder)builder).Order = 3);
+
+//app.MapForwarder("/_framework/{**catchAll}", configuration["App:LegacyAppBasePath"]).Add(static builder 
+//    => ((RouteEndpointBuilder)builder).Order = 4);
+
+app.MapForwarder("/projects/{**catchAll}", configuration["App:LegacyAppBasePath"]).Add(static builder
+    => ((RouteEndpointBuilder)builder).Order = 5);
 
 app.Run();
