@@ -7,7 +7,7 @@ public partial class AppDataPicker : System.Web.UI.UserControl
         get
         {
             var dateValue = Request.Form[Name];
-            if (DateTime.TryParse(dateValue, out DateTime parsedDate))
+            if (DateTime.TryParse(dateValue, out var parsedDate))
             {
                 return parsedDate;
             }
