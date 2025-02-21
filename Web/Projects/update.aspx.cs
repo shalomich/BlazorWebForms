@@ -1,58 +1,63 @@
 ﻿using System;
 using System.Text.Json;
-using System.Web.UI;
 using Common.UseCases;
 using Common.Web;
 using MediatR;
 using Web.Infrastructure;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
-namespace WebForms.Projects
+public partial class projects_update : System.Web.UI.Page
 {
-    public partial class update : System.Web.UI.Page
+    private readonly IMediator mediator;
+    private readonly AppUrlBuilder blazorAppUrlBuilder;
+
+    public string UpdateProjectPath { get; private set; }
+    public string ProjectEndDateString { get; private set; }
+
+    public projects_update()
     {
-        private readonly IMediator mediator;
-        private readonly AppUrlBuilder blazorAppUrlBuilder;
+        var serviceProvider = LegacyServiceProvider.Create();
 
-        public string UpdateProjectPath { get; private set; }
-        public string ProjectEndDateString { get; private set; }
+        mediator = serviceProvider.GetRequiredService<IMediator>();
+        blazorAppUrlBuilder = serviceProvider.GetRequiredService<AppUrlBuilder>();
+    }
 
-        public update()
+    protected async void Page_Load(object sender, EventArgs e)
+    {
+        if (Page.IsPostBack)
         {
-            var serviceProvider = LegacyServiceProvider.Create();
-
-            mediator = serviceProvider.GetRequiredService<IMediator>();
-            blazorAppUrlBuilder = serviceProvider.GetRequiredService<AppUrlBuilder>();
+            return;
         }
 
-        protected async void Page_Load(object sender, EventArgs e)
+        Form.Action = Request.RawUrl;
+
+        var projectIdString = Request.QueryString["id"];
+
+        if (!int.TryParse(projectIdString, out int projectId)) 
         {
-            if (Page.IsPostBack)
-            {
-                return;
-            }
-
-            var projectIdString = Request.QueryString["id"];
-
-            if (!int.TryParse(projectIdString, out int projectId)) 
-            {
-                Response.Redirect(LegacyAppPaths.ProjectsPath, false);
-                return;
-            }
-
-            ProjectDetailsDto project;
-            try
-            {
-                project = await mediator.Send(new GetProjectsByIdQuery(projectId));
-            }
-            catch (Exception) 
-            {
-                Response.Redirect(LegacyAppPaths.ProjectsPath, false);
-                return;
-            }
-
-            name.Text = project.Name;
-            ProjectEndDateString = JsonSerializer.Serialize(project.EndDate);
-            UpdateProjectPath = blazorAppUrlBuilder.BuildNewAppUrl(ApiPaths.UpdateProject(projectId));
+            Response.Redirect(LegacyAppPaths.ProjectsPath, false);
+            return;
         }
+
+        ProjectDetailsDto project;
+        try
+        {
+            project = await mediator.Send(new GetProjectsByIdQuery(projectId));
+        }
+        catch (Exception) 
+        {
+            Response.Redirect(LegacyAppPaths.ProjectsPath, false);
+            return;
+        }
+
+        name.Text = project.Name;
+        ProjectEndDateString = JsonSerializer.Serialize(project.EndDate);
+        UpdateProjectPath = blazorAppUrlBuilder.BuildNewAppUrl(ApiPaths.UpdateProject(projectId));
+    }
+
+    protected void button_Click(object sender, EventArgs e)
+    {
+        saveButton.Text = "123";
     }
 }
