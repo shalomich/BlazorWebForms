@@ -32,9 +32,6 @@ public partial class projects_update : System.Web.UI.Page
             return;
         }
 
-        // HACK: Assign raw URL to form instead of auto-generated one since it's incorrect.
-        Form.Action = Request.RawUrl;
-
         var projectIdString = Request.QueryString["id"];
 
         if (!int.TryParse(projectIdString, out int projectId)) 
