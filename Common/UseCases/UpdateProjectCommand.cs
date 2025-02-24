@@ -39,6 +39,7 @@ namespace Common.UseCases
             }
 
             project.Name = request.Project.Name;
+            project.StartDate = request.Project.StartDate;
             project.EndDate = request.Project.EndDate;
 
             await dbContext.SaveChangesAsync(cancellationToken);

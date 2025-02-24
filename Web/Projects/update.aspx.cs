@@ -62,7 +62,6 @@ public partial class projects_update : System.Web.UI.Page
 
     protected async void button_Click(object sender, EventArgs e)
     {
-        var start = startDate.Date;
         var projectIdString = Request.QueryString["id"];
 
         if (!int.TryParse(projectIdString, out int projectId)) 
@@ -78,8 +77,9 @@ public partial class projects_update : System.Web.UI.Page
 
         var projectDto = new ProjectUpdateDto()
         {
-            EndDate = endDate.Date.Value,
-            Name = name.Text
+            Name = name.Text,
+            StartDate = startDate.Date.Value,
+            EndDate = endDate.Date.Value
         };
 
         await mediator.Send(new UpdateProjectCommand(projectId, projectDto));

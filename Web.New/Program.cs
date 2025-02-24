@@ -2,6 +2,7 @@ using Web.SharedComponents.Infrastructure;
 using Common.DI;
 using Common.Web;
 using Microsoft.AspNetCore.DataProtection;
+using Web.New.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -84,22 +85,6 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 app.MapControllers();
 
-app.MapForwarder("/Scripts/{**catchAll}", configuration["App:LegacyAppBasePath"]).Add(static builder 
-    => ((RouteEndpointBuilder)builder).Order = 1);
-
-app.MapForwarder("/Content/{**catchAll}", configuration["App:LegacyAppBasePath"]).Add(static builder 
-    => ((RouteEndpointBuilder)builder).Order = 2);
-
-app.MapForwarder("/bundles/{**catchAll}", configuration["App:LegacyAppBasePath"]).Add(static builder 
-    => ((RouteEndpointBuilder)builder).Order = 3);
-
-app.MapForwarder("/_framework/{**catchAll}", configuration["App:LegacyAppBasePath"]).Add(static builder 
-    => ((RouteEndpointBuilder)builder).Order = 4);
-
-app.MapForwarder("/projects", configuration["App:LegacyAppBasePath"]).Add(static builder
-    => ((RouteEndpointBuilder)builder).Order = 5);
-
-app.MapForwarder("/projects/update", configuration["App:LegacyAppBasePath"]).Add(static builder
-    => ((RouteEndpointBuilder)builder).Order = 6);
+app.ConfigureProxy(configuration);
 
 app.Run();
