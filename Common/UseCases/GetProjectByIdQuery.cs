@@ -36,6 +36,7 @@ namespace Common.UseCases
                     Id = project.Id,
                     Name = project.Name,
                     EndDate = project.EndDate,
+                    StartDate = project.StartDate,
                     UserName = project.User.UserName
                 })
                 .FirstAsync(project => project.Id == request.Id, cancellationToken);
