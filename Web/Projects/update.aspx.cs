@@ -15,6 +15,7 @@ public partial class projects_update : System.Web.UI.Page
 
     public string UpdateProjectPath { get; private set; }
     public string ProjectEndDateString { get; private set; }
+    public string ProjectStartDateString { get; private set; }
 
     public projects_update()
     {
@@ -55,11 +56,13 @@ public partial class projects_update : System.Web.UI.Page
 
         name.Text = project.Name;
         ProjectEndDateString = JsonSerializer.Serialize(project.EndDate);
+        ProjectStartDateString = JsonSerializer.Serialize(project.StartDate);
         UpdateProjectPath = blazorAppUrlBuilder.BuildNewAppUrl(ApiPaths.UpdateProject(projectId));
     }
 
     protected async void button_Click(object sender, EventArgs e)
     {
+        var start = startDate.Date;
         var projectIdString = Request.QueryString["id"];
 
         if (!int.TryParse(projectIdString, out int projectId)) 
