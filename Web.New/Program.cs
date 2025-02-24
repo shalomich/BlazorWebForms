@@ -2,9 +2,6 @@ using Web.SharedComponents.Infrastructure;
 using Common.DI;
 using Common.Web;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Components.Web;
-using Web.SharedComponents.Components;
-using Web.New;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -96,10 +93,13 @@ app.MapForwarder("/Content/{**catchAll}", configuration["App:LegacyAppBasePath"]
 app.MapForwarder("/bundles/{**catchAll}", configuration["App:LegacyAppBasePath"]).Add(static builder 
     => ((RouteEndpointBuilder)builder).Order = 3);
 
-//app.MapForwarder("/_framework/{**catchAll}", configuration["App:LegacyAppBasePath"]).Add(static builder 
-//    => ((RouteEndpointBuilder)builder).Order = 4);
+app.MapForwarder("/_framework/{**catchAll}", configuration["App:LegacyAppBasePath"]).Add(static builder 
+    => ((RouteEndpointBuilder)builder).Order = 4);
 
-app.MapForwarder("/projects/{**catchAll}", configuration["App:LegacyAppBasePath"]).Add(static builder
+app.MapForwarder("/projects", configuration["App:LegacyAppBasePath"]).Add(static builder
     => ((RouteEndpointBuilder)builder).Order = 5);
+
+app.MapForwarder("/projects/update", configuration["App:LegacyAppBasePath"]).Add(static builder
+    => ((RouteEndpointBuilder)builder).Order = 6);
 
 app.Run();

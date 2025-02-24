@@ -54,7 +54,7 @@
       <FrameworkFolder>_framework</FrameworkFolder>
       <ComponentsFolder>components</ComponentsFolder>
     </PropertyGroup>
-    <Exec Command="dotnet publish ../$(SharedComponentsProject)/$(SharedComponentsProject).csproj -c Release -o ./$(PublishFolder)" />
+    <Exec Command="dotnet publish ../$(SharedComponentsProject)/$(SharedComponentsProject).csproj -c $(Configuration) -o ./$(PublishFolder)" />
     <ItemGroup>
       <ContentFolder Include="$(WwwRootPath)\$(ContentFolder)\**\*" />
       <FrameworkFolder Include="$(WwwRootPath)\$(FrameworkFolder)\**\*" />
