@@ -7,7 +7,7 @@
     {
         public override void Up()
         {
-            AddColumn("dbo.Projects", "StartDate", c => c.DateTime(nullable: false));
+            AddColumn("dbo.Projects", "StartDate", c => c.DateTime());
         }
         
         public override void Down()

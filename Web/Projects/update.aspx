@@ -10,31 +10,13 @@
         </div>
         <div class="form-group">
             <label for="start-date">Start date:</label>
-            <uc:AppDatePicker ID="startDate" runat="server" Name="startDate" />
+            <uc:AppDatePicker ID="startDate" runat="server" Name="startDate"/>
         </div>
         <div class="form-group">
             <label for="end-date">End date:</label>
             <uc:AppDatePicker ID="endDate" runat="server" Name="endDate" />
         </div>
         <asp:Button ID="saveButton" runat="server" OnClick="button_Click" Text="Save" CssClass="btn btn-primary" />
-        <script>
-            document.addEventListener('component-rendered', function(event) {
-                const endDatePickerId = 'endDate';
-                if (event.detail.id !== endDatePickerId) {
-                    return;
-                }
-                const endDatePicker = document.getElementById(endDatePickerId);
-                endDatePicker.value = <%= ProjectEndDateString %>;
-            });
-            document.addEventListener('component-rendered', function (event) {
-                const startDatePickerId = 'startDate';
-                if (event.detail.id !== startDatePickerId) {
-                    return;
-                }
-                const startDatePicker = document.getElementById(startDatePickerId);
-                startDatePicker.value = <%= ProjectStartDateString %>;
-            });
-        </script>
     </div>
 </asp:Content>
 

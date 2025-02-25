@@ -34,13 +34,6 @@ builder.Services.AddDataProtection()
     .PersistKeysToFileSystem(new DirectoryInfo(AuthenticationConstants.PersistKeysPath))
     .SetApplicationName(AuthenticationConstants.ApplicationName);
 
-builder.Services.AddCors(options => options.AddPolicy("AllowFrontend", builder => builder
-    .AllowAnyOrigin()
-    .AllowAnyHeader()
-    .AllowAnyMethod()
-    .SetPreflightMaxAge(TimeSpan.FromDays(1))
-));
-
 // TODO: Use Redis for keys storage.
 //var redisConnection = builder.Configuration.GetConnectionString("Redis");
 

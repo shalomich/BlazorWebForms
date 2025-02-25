@@ -9,6 +9,7 @@
     <Columns>
         <asp:BoundField DataField="Id" HeaderText="Id" />
         <asp:BoundField DataField="Name" HeaderText="Name" />
+        <asp:BoundField DataField="StartDate" HeaderText="Start date" />
         <asp:BoundField DataField="EndDate" HeaderText="End date" />
         <asp:TemplateField>
             <ItemTemplate>

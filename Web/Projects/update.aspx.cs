@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Text.Json;
 using Common.UseCases;
 using Common.Web;
 using MediatR;
 using Web.Infrastructure;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 using Common.Dtos;
 
 public partial class projects_update : System.Web.UI.Page
@@ -14,9 +11,7 @@ public partial class projects_update : System.Web.UI.Page
     private readonly AppUrlBuilder blazorAppUrlBuilder;
 
     public string UpdateProjectPath { get; private set; }
-    public string ProjectEndDateString { get; private set; }
-    public string ProjectStartDateString { get; private set; }
-
+    
     public projects_update()
     {
         var serviceProvider = LegacyServiceProvider.Create();
@@ -52,8 +47,9 @@ public partial class projects_update : System.Web.UI.Page
         }
 
         name.Text = project.Name;
-        ProjectEndDateString = JsonSerializer.Serialize(project.EndDate);
-        ProjectStartDateString = JsonSerializer.Serialize(project.StartDate);
+        startDate.Date = project.StartDate;
+        endDate.Date = project.EndDate;
+
         UpdateProjectPath = blazorAppUrlBuilder.BuildNewAppUrl(ApiPaths.UpdateProject(projectId));
     }
 
@@ -80,7 +76,6 @@ public partial class projects_update : System.Web.UI.Page
         };
 
         await mediator.Send(new UpdateProjectCommand(projectId, projectDto));
-        Response.Redirect(Request.RawUrl, false);
-        return;
+        Response.Redirect(LegacyAppPaths.ProjectsPath, false);
     }
 }
