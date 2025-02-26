@@ -6,12 +6,16 @@ public partial class AppDataPicker : System.Web.UI.UserControl
     {
         get
         {
-            var dateValue = Request.Form[Name];
-            if (DateTime.TryParse(dateValue, out var parsedDate))
+            // Get the value from Blazor component if available
+            if (Page.IsPostBack && !string.IsNullOrEmpty(Request.Form[Name]))
             {
-                return parsedDate;
+                if (DateTime.TryParse(Request.Form[Name], out DateTime result))
+                {
+                    ViewState["Date"] = result;
+                    return result;
+                }
             }
-            return null;
+            return (DateTime?)ViewState["Date"];
         }
         set
         {
@@ -20,9 +24,4 @@ public partial class AppDataPicker : System.Web.UI.UserControl
     }
 
     public string Name { get; set; }
-
-    protected void Page_Load(object sender, EventArgs e)
-    {
-
-    }
 }
