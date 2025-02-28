@@ -78,6 +78,4 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 app.MapControllers();
 
-app.ConfigureProxy(configuration);
-
 app.Run();
