@@ -594,6 +594,10 @@
     <Compile Include="Migrations\202502240807460_AddStartDate.Designer.cs">
       <DependentUpon>202502240807460_AddStartDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202503030319150_MakeStartDateNullable.cs" />
+    <Compile Include="Migrations\202503030319150_MakeStartDateNullable.Designer.cs">
+      <DependentUpon>202503030319150_MakeStartDateNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Projects\default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
@@ -666,6 +670,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202502240807460_AddStartDate.resx">
       <DependentUpon>202502240807460_AddStartDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202503030319150_MakeStartDateNullable.resx">
+      <DependentUpon>202503030319150_MakeStartDateNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
