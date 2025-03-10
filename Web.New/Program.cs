@@ -2,7 +2,6 @@ using Web.SharedComponents.Infrastructure;
 using Common.DI;
 using Common.Web;
 using Microsoft.AspNetCore.DataProtection;
-using Web.New.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -45,8 +44,8 @@ builder.Services.AddDataProtection()
 //        .PersistKeysToStackExchangeRedis(redis);
 //}
 
-builder.Services.AddCors(options => options.AddPolicy("AllowFrontend", builder => builder
-    .WithOrigins("https://localhost:44322")
+builder.Services.AddCors(options => options.AddPolicy("AllowFrontend", corsBuilder => corsBuilder
+    .WithOrigins(builder.Configuration["App:LegacyAppBasePath"])
     .AllowCredentials()
     .AllowAnyHeader()
     .AllowAnyMethod()

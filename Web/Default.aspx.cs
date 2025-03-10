@@ -13,6 +13,10 @@ namespace Web
             {
                 Response.Redirect(LegacyAppPaths.ProjectsPath);
             }
+            else
+            {
+                Response.Redirect(LegacyAppPaths.LoginPath);
+            }
         }
     }
 }

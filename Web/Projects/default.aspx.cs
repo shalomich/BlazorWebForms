@@ -37,7 +37,7 @@ namespace WebForms.Projects
         {
             if (!HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                Redirect(LegacyAppPaths.LoginPath);
+                Response.Redirect(LegacyAppPaths.LoginPath);
                 return;
             }
 
