@@ -47,7 +47,7 @@
 
     protected async Task Logout()
     {
-        await HttpClient.PostAsync("new/" + ApiPaths.Logout, content: null);
+        await HttpClient.PostAsync(AppUrlBuilder.BuildNewAppUrl(ApiPaths.Logout), content: null);
 
         NavigationManager.NavigateTo(AppUrlBuilder.BuildLegacyAppUrl(LegacyAppPaths.LoginPath), forceLoad: true);
     }
