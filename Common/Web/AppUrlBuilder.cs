@@ -24,7 +24,7 @@ namespace Common.Web
         public string BuildNewAppUrl(string path)
         {
             var baseUri = new Uri(appSettings.NewAppBasePath);
-            return new Uri(baseUri, path).ToString();
+            return new Uri($"{baseUri}new/{path}").ToString();
         }
     }
 }

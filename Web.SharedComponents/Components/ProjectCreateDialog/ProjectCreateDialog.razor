@@ -48,7 +48,7 @@
 
     private async Task CreateProject() 
     {
-        await HttpClient.PostAsync(ApiPaths.CreateProject, JsonContent.Create(Model));
+        await HttpClient.PostAsync("new/" + ApiPaths.CreateProject, JsonContent.Create(Model));
 
         Dialog.Close();
 
