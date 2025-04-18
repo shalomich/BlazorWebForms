@@ -21,6 +21,16 @@
     <link href="Web.SharedComponents.styles.css" rel="stylesheet"/>
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+        window.blazorAppReady = () => {
+            document.getElementById('blazor-app')?.classList.remove('blazor-app-hidden');
+        };
+    </script>
+    <style>
+        .blazor-app-hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <form runat="server">
@@ -44,10 +54,11 @@
         </asp:ScriptManager>
         <app-provider></app-provider>
         <app-header logout-path="<%= Common.Web.LegacyAppPaths.LogoutPath %>" is-authenticated="<%=Request.IsAuthenticated%>"></app-header>
-        <div class="container body-content">
+        <div id="blazor-app" class="container body-content blazor-app-hidden">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
         </div>
+        <blazor-ready></blazor-ready>
     </form>
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/bootstrap.js") %>
