@@ -22,12 +22,15 @@
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
     <script>
-        window.blazorAppReady = () => {
-            document.getElementById('blazor-app')?.classList.remove('blazor-app-hidden');
-        };
+        document.addEventListener('component-rendered', function (event) {
+            if (event.detail.id !== 'app-provider') {
+                return;
+            }
+            document.getElementById('main-container')?.classList?.remove('app-hidden');
+        });
     </script>
     <style>
-        .blazor-app-hidden {
+        .app-hidden {
             display: none;
         }
     </style>
@@ -52,13 +55,12 @@
                 <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
-        <app-provider></app-provider>
         <app-header logout-path="<%= Common.Web.LegacyAppPaths.LogoutPath %>" is-authenticated="<%=Request.IsAuthenticated%>"></app-header>
-        <div id="blazor-app" class="container body-content blazor-app-hidden">
+        <div id="main-container" class="container body-content app-hidden">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
         </div>
-        <blazor-ready></blazor-ready>
+        <app-provider id="app-provider"></app-provider>
     </form>
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/bootstrap.js") %>

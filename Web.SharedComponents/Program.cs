@@ -16,6 +16,5 @@ builder.RootComponents.RegisterCustomElement<AppHeader>("app-header");
 builder.RootComponents.RegisterCustomElement<AppProvider>("app-provider");
 builder.RootComponents.RegisterCustomElement<ProjectCreateButton>("project-create-button");
 builder.RootComponents.RegisterCustomElement<AppDatePicker>("app-date-picker");
-builder.RootComponents.RegisterCustomElement<BlazorReadyNotifier>("blazor-ready");
 
 await builder.Build().RunAsync();
