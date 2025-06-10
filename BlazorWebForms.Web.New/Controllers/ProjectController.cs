@@ -1,6 +1,6 @@
-﻿using Common.Dtos;
-using Common.UseCases;
-using Common.Web;
+﻿using BlazorWebForms.UseCases.CreateProject;
+using BlazorWebForms.UseCases.UpdateProject;
+using BlazorWebForms.Web.Common.Web;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

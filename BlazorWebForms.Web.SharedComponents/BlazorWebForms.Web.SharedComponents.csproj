@@ -19,7 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\BlazorWebForms.Domain\BlazorWebForms.Domain.csproj" />
+    <ProjectReference Include="..\BlazorWebForms.UseCases\BlazorWebForms.UseCases.csproj" />
+    <ProjectReference Include="..\BlazorWebForms.Web.Common\BlazorWebForms.Web.Common.csproj" />
   </ItemGroup>
 
 </Project>

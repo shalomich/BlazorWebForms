@@ -5,8 +5,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity.EntityFramework;
 using BlazorWebForms.Web.Infrastructure;
-using Common.Entities;
-using Common.Web;
+using BlazorWebForms.Web.Common.Web;
+using BlazorWebForms.Domain.Entities;
 
 namespace Web
 {

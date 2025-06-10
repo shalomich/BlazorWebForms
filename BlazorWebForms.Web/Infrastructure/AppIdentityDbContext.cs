@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using Common.Entities;
+using BlazorWebForms.Domain.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BlazorWebForms.Web.Infrastructure

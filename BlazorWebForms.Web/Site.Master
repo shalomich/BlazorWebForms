@@ -55,7 +55,7 @@
                 <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
-        <app-header logout-path="<%= Common.Web.LegacyAppPaths.LogoutPath %>" is-authenticated="<%=Request.IsAuthenticated%>"></app-header>
+        <app-header logout-path="<%= BlazorWebForms.Web.Common.Web.LegacyAppPaths.LogoutPath %>" is-authenticated="<%=Request.IsAuthenticated%>"></app-header>
         <div id="main-container" class="container body-content app-hidden">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>

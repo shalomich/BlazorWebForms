@@ -1,7 +1,7 @@
-﻿using Common.DI;
+﻿using BlazorWebForms.Web.Common.DI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Common;
+using BlazorWebForms.Infrastructure;
 
 namespace BlazorWebForms.Web.New.Infrastructure
 {

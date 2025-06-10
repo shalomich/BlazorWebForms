@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.UI;
-using Common.Web;
+using BlazorWebForms.Web.Common.Web;
 
 namespace Web
 {

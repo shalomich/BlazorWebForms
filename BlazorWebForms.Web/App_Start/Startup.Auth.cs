@@ -8,8 +8,8 @@ using Microsoft.Owin.Security.Interop;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNet.Identity;
 using BlazorWebForms.Web.App_Start;
-using Common.Entities;
-using Common.Web;
+using BlazorWebForms.Web.Common.Web;
+using BlazorWebForms.Domain.Entities;
 
 [assembly: OwinStartup(typeof(Startup))]
 namespace BlazorWebForms.Web.App_Start

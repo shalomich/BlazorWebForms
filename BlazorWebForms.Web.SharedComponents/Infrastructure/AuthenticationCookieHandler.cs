@@ -1,4 +1,4 @@
-﻿using Common.Web;
+﻿using BlazorWebForms.Web.Common.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Http;
 using Microsoft.AspNetCore.Http;
 

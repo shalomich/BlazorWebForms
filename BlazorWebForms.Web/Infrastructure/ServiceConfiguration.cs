@@ -1,4 +1,4 @@
-﻿using Common.DI;
+﻿using BlazorWebForms.Web.Common.DI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

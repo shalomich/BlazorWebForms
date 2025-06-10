@@ -1,9 +1,9 @@
 ﻿using System;
-using Common.UseCases;
-using Common.Web;
+using BlazorWebForms.Web.Common.Web;
 using MediatR;
 using BlazorWebForms.Web.Infrastructure;
-using Common.Dtos;
+using BlazorWebForms.UseCases.GetProjectId;
+using BlazorWebForms.UseCases.UpdateProject;
 
 public partial class projects_update : System.Web.UI.Page
 {

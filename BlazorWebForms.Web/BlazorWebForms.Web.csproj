@@ -659,9 +659,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
+    <ProjectReference Include="..\BlazorWebForms.Domain\BlazorWebForms.Domain.csproj">
+      <Project>{ef98f167-8e29-4b69-8cac-5958aaa6c0c3}</Project>
+      <Name>BlazorWebForms.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlazorWebForms.UseCases\BlazorWebForms.UseCases.csproj">
+      <Project>{581b5a37-d6a2-4b42-b4d0-e668c851457c}</Project>
+      <Name>BlazorWebForms.UseCases</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlazorWebForms.Web.Common\BlazorWebForms.Web.Common.csproj">
+      <Project>{f65835f9-67c3-4c26-ac8a-f3076bb8d962}</Project>
+      <Name>BlazorWebForms.Web.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlazorWebForms.Infrastructure\BlazorWebForms.Infrastructure.csproj">
       <Project>{b16ac4b0-02e2-4e55-ad53-ee37b60ddbc4}</Project>
-      <Name>Common</Name>
+      <Name>BlazorWebForms.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

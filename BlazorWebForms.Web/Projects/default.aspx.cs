@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Common.Dtos;
-using Common.Entities;
-using Common.UseCases;
-using Common.Web;
+using BlazorWebForms.Web.Common.Web;
 using MediatR;
 using BlazorWebForms.Web.Infrastructure;
+using BlazorWebForms.UseCases.GetUsers;
+using BlazorWebForms.UseCases.GetProjects;
 
 namespace WebForms.Projects
 {

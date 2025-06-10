@@ -1,6 +1,6 @@
 using BlazorWebForms.Web.SharedComponents.Infrastructure;
-using Common.DI;
-using Common.Web;
+using BlazorWebForms.Web.Common.DI;
+using BlazorWebForms.Web.Common.Web;
 using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlazorWebForms.Domain\BlazorWebForms.Domain.csproj" />
+    <ProjectReference Include="..\BlazorWebForms.Infrastructure\BlazorWebForms.Infrastructure.csproj" />
+    <ProjectReference Include="..\BlazorWebForms.Infrastructure\BlazorWebForms.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

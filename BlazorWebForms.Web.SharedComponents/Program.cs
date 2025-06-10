@@ -1,4 +1,4 @@
-using Common.DI;
+using BlazorWebForms.Web.Common.DI;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using BlazorWebForms.Web.SharedComponents.Components;

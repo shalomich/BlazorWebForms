@@ -1,4 +1,4 @@
-﻿using Common.Web;
+﻿using BlazorWebForms.Web.Common.Web;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

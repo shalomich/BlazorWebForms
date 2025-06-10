@@ -1,10 +1,13 @@
 {
   "mainAssemblyName": "BlazorWebForms.Web.SharedComponents",
   "resources": {
-    "hash": "sha256-a5jQWD8zvTEMONTGKWHrpnqVSXsSZnaZ7V86POhM4t8=",
+    "hash": "sha256-Th7dGTPnlRuNTVIdaqCsTIYeH8RcMWoGBWQd5jaajkY=",
     "fingerprinting": {
-      "BlazorWebForms.Web.SharedComponents.iu9ops3qx1.wasm": "BlazorWebForms.Web.SharedComponents.wasm",
-      "Common.n3lw5tto1l.wasm": "Common.wasm",
+      "BlazorWebForms.Domain.074s4ngzku.wasm": "BlazorWebForms.Domain.wasm",
+      "BlazorWebForms.Infrastructure.rk4s938e01.wasm": "BlazorWebForms.Infrastructure.wasm",
+      "BlazorWebForms.UseCases.3tg2wyeq2d.wasm": "BlazorWebForms.UseCases.wasm",
+      "BlazorWebForms.Web.Common.ke11omo4yl.wasm": "BlazorWebForms.Web.Common.wasm",
+      "BlazorWebForms.Web.SharedComponents.xxlxdsa7j1.wasm": "BlazorWebForms.Web.SharedComponents.wasm",
       "EntityFramework.SqlServer.iqn1swr3b6.wasm": "EntityFramework.SqlServer.wasm",
       "EntityFramework.2yy7y83orc.wasm": "EntityFramework.wasm",
       "MediatR.Contracts.f5sa8x1lz4.wasm": "MediatR.Contracts.wasm",
@@ -133,8 +136,11 @@
       "icudt_CJK.tjcz0u77k5.dat": "icudt_CJK.dat",
       "icudt_EFIGS.tptq2av103.dat": "icudt_EFIGS.dat",
       "icudt_no_CJK.lfu7j35m59.dat": "icudt_no_CJK.dat",
-      "BlazorWebForms.Web.SharedComponents.wqbb75jxup.pdb": "BlazorWebForms.Web.SharedComponents.pdb",
-      "Common.btszbgnanw.pdb": "Common.pdb"
+      "BlazorWebForms.Domain.f1i87kisym.pdb": "BlazorWebForms.Domain.pdb",
+      "BlazorWebForms.Infrastructure.fagv6trz9m.pdb": "BlazorWebForms.Infrastructure.pdb",
+      "BlazorWebForms.UseCases.8if1wty9b0.pdb": "BlazorWebForms.UseCases.pdb",
+      "BlazorWebForms.Web.Common.cmzsodc715.pdb": "BlazorWebForms.Web.Common.pdb",
+      "BlazorWebForms.Web.SharedComponents.hwesdobczh.pdb": "BlazorWebForms.Web.SharedComponents.pdb"
     },
     "jsModuleNative": {
       "dotnet.native.hmanx9razn.js": "sha256-d7UNSArplVrX3arY2Kmhxp1wN79ng8hLqIBrkiQ9Gbo="
@@ -155,8 +161,11 @@
       "System.Runtime.InteropServices.JavaScript.o3fvvgolga.wasm": "sha256-NN2n3PJZy7JWbiQ0Kl4G5oKQtZE0K/+lDRe/X0fsiI0="
     },
     "assembly": {
-      "BlazorWebForms.Web.SharedComponents.iu9ops3qx1.wasm": "sha256-Jl+PUV7dHG/SncB9GruwSfizlgVIy1JKNy1XY3trKa4=",
-      "Common.n3lw5tto1l.wasm": "sha256-LUTUQkQ3jUyWX9iZnHgS23bSr/BVzpUN2nNKlYGlS44=",
+      "BlazorWebForms.Domain.074s4ngzku.wasm": "sha256-PAR/LhO7aT4C8L6AF9vaSBIC5U6fL6Z5UuSplvIhwkg=",
+      "BlazorWebForms.Infrastructure.rk4s938e01.wasm": "sha256-K5tOjK/bFy1qZe7oBqKwKge8N6LKfdT/aHtwsSHeu+w=",
+      "BlazorWebForms.UseCases.3tg2wyeq2d.wasm": "sha256-lwmrjBDrWDAJ06M45cA9lL8T9pwG5MSS/7+sDu2ZKvQ=",
+      "BlazorWebForms.Web.Common.ke11omo4yl.wasm": "sha256-pJLVwfaSlVK1yO5ig9fiSEhJvYZMJ4zbdh7ZxEWHLuE=",
+      "BlazorWebForms.Web.SharedComponents.xxlxdsa7j1.wasm": "sha256-q5V/BVPZ3h7y7Flj/hNu+36aHYVryK2nEe6GW41WknQ=",
       "EntityFramework.SqlServer.iqn1swr3b6.wasm": "sha256-arpncdCzJq1MvvtJHJJ7lNpQIUjqZjvwqYYITjCKZOI=",
       "EntityFramework.2yy7y83orc.wasm": "sha256-ql5A1wRBmtB+4XvYPAwCUtUAC4+0LKJQjQaRnZnFrO4=",
       "MediatR.Contracts.f5sa8x1lz4.wasm": "sha256-/db+nahzjeSd5EhxUqFrpFzJ998Up6Vgs1PHrV3jqkU=",
@@ -278,8 +287,11 @@
       "System.Xml.XmlSerializer.834zs0d8xd.wasm": "sha256-jJQ+8e7Ci2WDTxQ7tSflOrcpty9bnahC/MZgqn8m898="
     },
     "pdb": {
-      "BlazorWebForms.Web.SharedComponents.wqbb75jxup.pdb": "sha256-yOQoinnqwlzkTnus67VQm/XF2ua7EAB3xjISEef3WkA=",
-      "Common.btszbgnanw.pdb": "sha256-YWhSb3O2xzPbBbto7Tzxm6/PejGtHRtaFZEd0GgE0HM="
+      "BlazorWebForms.Domain.f1i87kisym.pdb": "sha256-U2QGT7xQhOYyIRxQSa6wKANdlNY7xpc/tugDyowoPNk=",
+      "BlazorWebForms.Infrastructure.fagv6trz9m.pdb": "sha256-ydFQK71/ynjwc9hI27HZslHFo0L2u45S6tA6dLFVhTo=",
+      "BlazorWebForms.UseCases.8if1wty9b0.pdb": "sha256-QOdaA8qcLB3FKoWAautrhGnAy866AZKiNrt2SMAFXuE=",
+      "BlazorWebForms.Web.Common.cmzsodc715.pdb": "sha256-rHDM3PDKveOLxXUsPO6wsAIz78E2UucBCHxOIvS/fpE=",
+      "BlazorWebForms.Web.SharedComponents.hwesdobczh.pdb": "sha256-cXfIDZ79yp85TYXkb387UUO1WlP1SkTkHhOCB09miwg="
     },
     "libraryInitializers": {
       "_content/Microsoft.AspNetCore.Components.CustomElements/js/dist/Release/Microsoft.AspNetCore.Components.CustomElements.lib.module.js": "sha256-42ntwAHGOQO7bMAUpxhBHq6olqo190V2mWSnaWYot3Y="

@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorWebForms.Web.SharedComponents\BlazorWebForms.Web.SharedComponents.csproj" />
-    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\BlazorWebForms.Infrastructure\BlazorWebForms.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
