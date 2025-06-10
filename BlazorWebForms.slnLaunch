@@ -3,15 +3,15 @@
     "Name": "Proxied App",
     "Projects": [
       {
-        "Path": "Web\\Web.csproj",
+        "Path": "BlazorWebForms.Web\\BlazorWebForms.Web.csproj",
         "Action": "Start"
       },
       {
-        "Path": "Web.New\\Web.New.csproj",
+        "Path": "BlazorWebForms.Web.New\\BlazorWebForms.Web.New.csproj",
         "Action": "Start"
       },
       {
-        "Path": "Web.Gateway\\Web.Gateway.csproj",
+        "Path": "BlazorWebForms.Web.Gateway\\BlazorWebForms.Web.Gateway.csproj",
         "Action": "Start"
       }
     ]
