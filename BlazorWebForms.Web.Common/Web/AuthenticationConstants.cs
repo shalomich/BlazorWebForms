@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BlazorWebForms.Web.Common.Web
+﻿namespace BlazorWebForms.Web.Common.Web
 {
     public static class AuthenticationConstants
     {
@@ -11,6 +7,9 @@ namespace BlazorWebForms.Web.Common.Web
         public const string AuthenticationType = "Identity.Application";
 
         public const string ApplicationName = "SharedCookieApp";
+
+        // Redis key used to store Data Protection XML payloads
+        public const string RedisPersistKey = "DataProtection-Keys";
 
         // TODO: Use Redis for storage.
         public const string PersistKeysPath = @"C:\Users\User\Desktop\PersistKeys";

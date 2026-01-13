@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity;
 using BlazorWebForms.Web.App_Start;
 using BlazorWebForms.Web.Common.Web;
 using BlazorWebForms.Domain.Entities;
+using StackExchange.Redis;
 
 [assembly: OwinStartup(typeof(Startup))]
 namespace BlazorWebForms.Web.App_Start
@@ -19,6 +20,9 @@ namespace BlazorWebForms.Web.App_Start
         public void Configuration(IAppBuilder app)
         {
             // https://learn.microsoft.com/en-us/aspnet/core/security/cookie-sharing?view=aspnetcore-9.0#share-authentication-cookies-between-aspnet-4x-and-aspnet-core-apps
+
+            var dataProtectionProvider = CreateDataProtectionProvider();
+
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 LoginPath = new PathString(LegacyAppPaths.LoginPath),
@@ -32,16 +36,47 @@ namespace BlazorWebForms.Web.App_Start
                 CookieName = AuthenticationConstants.CookieName,
                 AuthenticationType = AuthenticationConstants.AuthenticationType,
                 TicketDataFormat = new AspNetTicketDataFormat(new DataProtectorShim(
-                    DataProtectionProvider.Create(new DirectoryInfo(@"C:\Users\User\Desktop\PersistKeys"),
-                    builder => builder
-                        .SetApplicationName(AuthenticationConstants.ApplicationName))
-                        .CreateProtector(
-                            "Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationMiddleware",
-                            // Must match the Scheme name used in the ASP.NET Core app, i.e. IdentityConstants.ApplicationScheme
-                            AuthenticationConstants.AuthenticationType,
-                            "v2"))),
+                    dataProtectionProvider.CreateProtector(
+                        "Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationMiddleware",
+                        // Must match the Scheme name used in the ASP.NET Core app, i.e. IdentityConstants.ApplicationScheme
+                        AuthenticationConstants.AuthenticationType,
+                        "v2"))),
                 CookieManager = new ChunkingCookieManager()
             });
+        }
+
+        private static IDataProtectionProvider CreateDataProtectionProvider()
+        {
+            try
+            {
+                var mux = ConnectionMultiplexer.Connect("localhost:6379");
+
+                // Use a temporary directory for the DataProtection provider instance (it won't be used for key persistence when Redis is available)
+                var tempDir = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory ?? ".", "DataProtection"));
+                if (!tempDir.Exists)
+                {
+                    Directory.CreateDirectory(tempDir.FullName);
+                }
+
+                return DataProtectionProvider.Create(tempDir, builder =>
+                {
+                    builder.SetApplicationName(AuthenticationConstants.ApplicationName);
+                    builder.PersistKeysToStackExchangeRedis(mux, AuthenticationConstants.RedisPersistKey);
+                });
+            }
+            catch (Exception)
+            {
+                var physicalDir = new DirectoryInfo(AuthenticationConstants.PersistKeysPath);
+                if (!physicalDir.Exists)
+                {
+                    Directory.CreateDirectory(physicalDir.FullName);
+                }
+
+                return DataProtectionProvider.Create(physicalDir, builder =>
+                {
+                    builder.SetApplicationName(AuthenticationConstants.ApplicationName);
+                });
+            }
         }
     }
 }

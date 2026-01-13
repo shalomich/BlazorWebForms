@@ -1,7 +1,8 @@
-using BlazorWebForms.Web.SharedComponents.Infrastructure;
-using BlazorWebForms.Web.Common.DI;
+﻿using BlazorWebForms.Web.Common.DI;
 using BlazorWebForms.Web.Common.Web;
+using BlazorWebForms.Web.SharedComponents.Infrastructure;
 using Microsoft.AspNetCore.DataProtection;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -29,20 +30,17 @@ builder.Services.AddAuthentication(AuthenticationConstants.AuthenticationType)
         options.Cookie.Path = "/";
     });
 
-builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo(AuthenticationConstants.PersistKeysPath))
-    .SetApplicationName(AuthenticationConstants.ApplicationName);
+var redisConnection = builder.Configuration.GetConnectionString("Redis");
 
-// TODO: Use Redis for keys storage.
-//var redisConnection = builder.Configuration.GetConnectionString("Redis");
 
-//if (!string.IsNullOrEmpty(redisConnection))
-//{
-//    var redis = ConnectionMultiplexer.Connect(redisConnection);
+    var redis = ConnectionMultiplexer.Connect("localhost:6379");
 
-//    builder.Services.AddDataProtection()
-//        .PersistKeysToStackExchangeRedis(redis);
-//}
+    builder.Services
+        .AddDataProtection()
+        .SetApplicationName(AuthenticationConstants.ApplicationName)
+        .PersistKeysToStackExchangeRedis(
+            redis,
+            AuthenticationConstants.RedisPersistKey);
 
 builder.Services.AddCors(options => options.AddPolicy("AllowFrontend", corsBuilder => corsBuilder
     .WithOrigins(builder.Configuration["App:LegacyAppBasePath"])

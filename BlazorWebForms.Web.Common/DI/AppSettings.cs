@@ -9,5 +9,7 @@ namespace BlazorWebForms.Web.Common.DI
         public string NewAppBasePath { get; set; }
 
         public string LegacyAppBasePath { get; set; }
+
+        public string RedisConnection { get; set; }
     }
 }
