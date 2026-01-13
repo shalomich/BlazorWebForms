@@ -32,15 +32,19 @@ builder.Services.AddAuthentication(AuthenticationConstants.AuthenticationType)
 
 var redisConnection = builder.Configuration.GetConnectionString("Redis");
 
+if (string.IsNullOrEmpty(redisConnection))
+{
+    throw new InvalidOperationException("Redis connection string is not initialized [ConnectionStrings:Redis].");
+}
 
-    var redis = ConnectionMultiplexer.Connect("localhost:6379");
+var redis = ConnectionMultiplexer.Connect(redisConnection);
 
-    builder.Services
-        .AddDataProtection()
-        .SetApplicationName(AuthenticationConstants.ApplicationName)
-        .PersistKeysToStackExchangeRedis(
-            redis,
-            AuthenticationConstants.RedisPersistKey);
+builder.Services
+    .AddDataProtection()
+    .SetApplicationName(AuthenticationConstants.ApplicationName)
+    .PersistKeysToStackExchangeRedis(
+        redis,
+        AuthenticationConstants.RedisPersistKey);
 
 builder.Services.AddCors(options => options.AddPolicy("AllowFrontend", corsBuilder => corsBuilder
     .WithOrigins(builder.Configuration["App:LegacyAppBasePath"])

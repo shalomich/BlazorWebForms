@@ -11,6 +11,10 @@ using BlazorWebForms.Web.App_Start;
 using BlazorWebForms.Web.Common.Web;
 using BlazorWebForms.Domain.Entities;
 using StackExchange.Redis;
+using Web;
+using Autofac;
+using Microsoft.Extensions.Options;
+using BlazorWebForms.Web.Common.DI;
 
 [assembly: OwinStartup(typeof(Startup))]
 namespace BlazorWebForms.Web.App_Start
@@ -21,7 +25,9 @@ namespace BlazorWebForms.Web.App_Start
         {
             // https://learn.microsoft.com/en-us/aspnet/core/security/cookie-sharing?view=aspnetcore-9.0#share-authentication-cookies-between-aspnet-4x-and-aspnet-core-apps
 
-            var dataProtectionProvider = CreateDataProtectionProvider();
+            var appSettings = Global.ApplicationContainer.Resolve<IOptions<AppSettings>>();
+
+            var dataProtectionProvider = CreateDataProtectionProvider(appSettings.Value.RedisConnection);
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
@@ -45,11 +51,11 @@ namespace BlazorWebForms.Web.App_Start
             });
         }
 
-        private static IDataProtectionProvider CreateDataProtectionProvider()
+        private static IDataProtectionProvider CreateDataProtectionProvider(string redisConnection)
         {
             try
             {
-                var mux = ConnectionMultiplexer.Connect("localhost:6379");
+                var mux = ConnectionMultiplexer.Connect(redisConnection);
 
                 // Use a temporary directory for the DataProtection provider instance (it won't be used for key persistence when Redis is available)
                 var tempDir = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory ?? ".", "DataProtection"));

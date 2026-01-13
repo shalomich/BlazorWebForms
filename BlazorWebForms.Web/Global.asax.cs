@@ -21,6 +21,11 @@ namespace Web
             get { return containerProvider; }
         }
 
+        /// <summary>
+        /// Application container.
+        /// </summary>
+        public static IContainer ApplicationContainer { get; private set; }
+
         void Application_Start(object sender, EventArgs e)
         {
             RegisterServices();
@@ -38,7 +43,9 @@ namespace Web
 
             builder.Populate(services);
 
-            containerProvider = new ContainerProvider(builder.Build());
+            ApplicationContainer = builder.Build();
+
+            containerProvider = new ContainerProvider(ApplicationContainer);
         }
     }
 }
