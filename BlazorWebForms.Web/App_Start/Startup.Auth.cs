@@ -53,36 +53,20 @@ namespace BlazorWebForms.Web.App_Start
 
         private static IDataProtectionProvider CreateDataProtectionProvider(string redisConnection)
         {
-            try
+            var mux = ConnectionMultiplexer.Connect(redisConnection);
+
+            // Use a temporary directory for the DataProtection provider instance (it won't be used for key persistence when Redis is available)
+            var tempDir = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory ?? ".", "DataProtection"));
+            if (!tempDir.Exists)
             {
-                var mux = ConnectionMultiplexer.Connect(redisConnection);
-
-                // Use a temporary directory for the DataProtection provider instance (it won't be used for key persistence when Redis is available)
-                var tempDir = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory ?? ".", "DataProtection"));
-                if (!tempDir.Exists)
-                {
-                    Directory.CreateDirectory(tempDir.FullName);
-                }
-
-                return DataProtectionProvider.Create(tempDir, builder =>
-                {
-                    builder.SetApplicationName(AuthenticationConstants.ApplicationName);
-                    builder.PersistKeysToStackExchangeRedis(mux, AuthenticationConstants.RedisPersistKey);
-                });
+                Directory.CreateDirectory(tempDir.FullName);
             }
-            catch (Exception)
+
+            return DataProtectionProvider.Create(tempDir, builder =>
             {
-                var physicalDir = new DirectoryInfo(AuthenticationConstants.PersistKeysPath);
-                if (!physicalDir.Exists)
-                {
-                    Directory.CreateDirectory(physicalDir.FullName);
-                }
-
-                return DataProtectionProvider.Create(physicalDir, builder =>
-                {
-                    builder.SetApplicationName(AuthenticationConstants.ApplicationName);
-                });
-            }
+                builder.SetApplicationName(AuthenticationConstants.ApplicationName);
+                builder.PersistKeysToStackExchangeRedis(mux, AuthenticationConstants.RedisPersistKey);
+            });
         }
     }
 }
