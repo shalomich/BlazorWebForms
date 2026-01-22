@@ -8,10 +8,6 @@
 
         public const string ApplicationName = "SharedCookieApp";
 
-        // Redis key used to store Data Protection XML payloads
         public const string RedisPersistKey = "DataProtection-Keys";
-
-        // TODO: Use Redis for storage.
-        public const string PersistKeysPath = @"C:\Users\User\Desktop\PersistKeys";
     }
 }
