@@ -206,20 +206,6 @@ builder.RootComponents.RegisterCustomElement<AppDatePicker>("app-date-picker");
 </app-header>
 ```
 
-### 4. Build Integration
-
-The Web Forms project automatically publishes Blazor Web Components during build:
-
-**MSBuild Target** ([BlazorWebForms.Web/BlazorWebForms.Web.csproj](BlazorWebForms.Web/BlazorWebForms.Web.csproj)):
-```xml
-<Target Name="SharedComponentsPublish" AfterTargets="ResolveReferences" BeforeTargets="PrepareResources">
-  <Exec Command="dotnet publish ../$(SharedComponentsProject)/$(SharedComponentsProject).csproj -c $(Configuration) -o ./$(PublishFolder)" />
-  <!-- Copy _content, _framework folders and styles -->
-  <Copy SourceFiles="@(ContentFolder)" DestinationFolder=".\$(ContentFolder)\%(RecursiveDir)" />
-  <Copy SourceFiles="@(FrameworkFolder)" DestinationFolder=".\$(FrameworkFolder)\%(RecursiveDir)" />
-</Target>
-```
-
 ## Migration Strategy
 
 - Create Gateway with YARP for routing  
@@ -261,7 +247,7 @@ For each feature/page:
 
 ## Common Challenges
 
-### 1. Authentication State Not Syncing
+### Authentication State Not Syncing
 
 **Problem**: User logs in on Web Forms but Blazor shows as unauthenticated
 
