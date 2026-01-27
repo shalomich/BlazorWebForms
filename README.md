@@ -9,18 +9,6 @@ This solution demonstrates how to:
 - **Run both applications side-by-side** without downtime
 - **Share authentication state** between Web Forms and Blazor
 - **Reuse Blazor components** within Web Forms pages (via Web Components)
-- **Gradually migrate features** from Web Forms to Blazor
-- **Maintain a clean architecture** using Domain-Driven Design and Clean Architecture principles
-
-### Why This Approach?
-
-Traditional "big bang" rewrites are risky and expensive. This gradual migration strategy allows you to:
-
-✅ Deliver business value continuously during migration  
-✅ Reduce risk by migrating features incrementally  
-✅ Learn and adjust as you go  
-✅ Keep the legacy application running while building the new one  
-✅ Share code and UI components between both platforms
 
 ## Architecture
 
@@ -66,7 +54,6 @@ Traditional "big bang" rewrites are risky and expensive. This gradual migration 
 
 2. **BlazorWebForms.Web.New**
    - New Blazor Server application
-   - Full modern Blazor functionality
    - Runs on `/new` path
 
 3. **BlazorWebForms.Web.SharedComponents**
@@ -133,6 +120,55 @@ Both applications share authentication state using:
 </appSettings>
 ```
 
+```csharp
+internal class Startup
+{
+    public void Configuration(IAppBuilder app)
+    {
+        var appSettings = Global.ApplicationContainer.Resolve<IOptions<AppSettings>>();
+
+        var dataProtectionProvider = CreateDataProtectionProvider(appSettings.Value.RedisConnection);
+
+        app.UseCookieAuthentication(new CookieAuthenticationOptions
+        {
+            LoginPath = new PathString(LegacyAppPaths.LoginPath),
+            Provider = new CookieAuthenticationProvider
+            {
+                OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<UserManager<ApplicationUser>, ApplicationUser>(
+                    validateInterval: TimeSpan.FromMinutes(30),
+                    regenerateIdentity: (manager, user) => manager.CreateIdentityAsync(user, AuthenticationConstants.AuthenticationType))
+            },
+            CookieName = AuthenticationConstants.CookieName,
+            AuthenticationType = AuthenticationConstants.AuthenticationType,
+            TicketDataFormat = new AspNetTicketDataFormat(new DataProtectorShim(
+                dataProtectionProvider.CreateProtector(
+                    "Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationMiddleware",
+                    // Must match the Scheme name used in the ASP.NET Core app, i.e. IdentityConstants.ApplicationScheme
+                    AuthenticationConstants.AuthenticationType,
+                    "v2"))),
+            CookieManager = new ChunkingCookieManager()
+        });
+    }
+
+    private static IDataProtectionProvider CreateDataProtectionProvider(string redisConnection)
+    {
+        var mux = ConnectionMultiplexer.Connect(redisConnection);
+
+        var tempDir = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory ?? ".", "DataProtection"));
+        if (!tempDir.Exists)
+        {
+            Directory.CreateDirectory(tempDir.FullName);
+        }
+
+        return DataProtectionProvider.Create(tempDir, builder =>
+        {
+            builder.SetApplicationName(AuthenticationConstants.ApplicationName);
+            builder.PersistKeysToStackExchangeRedis(mux, AuthenticationConstants.RedisPersistKey);
+        });
+    }
+}
+```
+
 **Blazor Configuration** ([BlazorWebForms.Web.New/Program.cs](BlazorWebForms.Web.New/Program.cs)):
 ```csharp
 builder.Services.AddAuthentication(AuthenticationConstants.AuthenticationType)
@@ -141,6 +177,8 @@ builder.Services.AddAuthentication(AuthenticationConstants.AuthenticationType)
         options.Cookie.Name = AuthenticationConstants.CookieName;
         options.Cookie.Path = "/";
     });
+
+var redis = ConnectionMultiplexer.Connect(redisConnection);
 
 builder.Services
     .AddDataProtection()
@@ -184,45 +222,16 @@ The Web Forms project automatically publishes Blazor Web Components during build
 
 ## Migration Strategy
 
-✅ Create Gateway with YARP for routing  
-✅ Set up shared authentication (Redis + Data Protection)  
-✅ Create SharedComponents project  
-✅ Create initial Blazor Server application  
+- Create Gateway with YARP for routing  
+- Set up shared authentication (Redis + Data Protection)  
+- Create SharedComponents project  
+- Create initial Blazor Server application  
 
 For each feature/page:
 - Create new Blazor page in `/new` path
 - Update links to point to new pages
 
-## Technical Implementation
-
-### Communication Between Web Forms and Blazor
-
-**1. Server-to-Browser (ASP.NET → Blazor Web Component)**
-
-Pass parameters as HTML attributes:
-```html
-<app-header 
-    logout-path="/Account/Logout" 
-    is-authenticated="true">
-</app-header>
-```
-
-**2. Browser-to-Server (Blazor Web Component → ASP.NET)**
-
-Use JavaScript Interop and Custom Events:
-```csharp
-// In Blazor component
-await JSRuntime.InvokeVoidAsync("navigateToLegacyPage", "/Projects/Edit.aspx?id=123");
-```
-
-### NuGet Packages
-
-Key packages used:
-- `Microsoft.AspNetCore.Components.CustomElements` - Web Components support
-- `Yarp.ReverseProxy` - Gateway routing
-- `Microsoft.AspNetCore.DataProtection.StackExchangeRedis` - Shared auth keys
-
-### 3. Update Connection Strings
+## Update Connection Strings
 
 **Web Forms** - [BlazorWebForms.Web/Web.config](BlazorWebForms.Web/Web.config):
 ```xml
