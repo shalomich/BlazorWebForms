@@ -1,6 +1,5 @@
 {
     "App": {
-        "NewAppBasePath": "",
-        "LegacyAppBasePath": ""
+        "GatewayBasePath": "",
     }
 }
