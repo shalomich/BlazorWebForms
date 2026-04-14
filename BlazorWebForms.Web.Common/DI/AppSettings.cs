@@ -6,6 +6,8 @@ namespace BlazorWebForms.Web.Common.DI
 {
     public class AppSettings
     {
+        public const string NewAppPathPrefix = "/v2/";
+
         public string NewAppBasePath { get; set; }
 
         public string LegacyAppBasePath { get; set; }

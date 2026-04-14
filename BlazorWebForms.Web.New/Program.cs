@@ -55,7 +55,7 @@ builder.Services.AddCors(options => options.AddPolicy("AllowFrontend", corsBuild
 
 var app = builder.Build();
 
-app.UsePathBase(new PathString("/new"));
+app.UsePathBase(new PathString(AppSettings.NewAppPathPrefix));
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

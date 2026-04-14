@@ -23,8 +23,8 @@ namespace BlazorWebForms.Web.Common.Web
 
         public string BuildNewAppUrl(string path)
         {
-            var baseUri = new Uri(appSettings.NewAppBasePath);
-            return new Uri($"{baseUri}new/{path}").ToString();
+            var baseUri = new Uri(new Uri(appSettings.NewAppBasePath), AppSettings.NewAppPathPrefix);
+            return new Uri(baseUri, path).ToString();
         }
     }
 }

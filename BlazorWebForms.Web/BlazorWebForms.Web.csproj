@@ -592,6 +592,7 @@
           <CustomServerUrl>
           </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <StartAction>NoStartPage</StartAction>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
