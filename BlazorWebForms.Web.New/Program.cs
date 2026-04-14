@@ -47,7 +47,7 @@ builder.Services
         AuthenticationConstants.RedisPersistKey);
 
 builder.Services.AddCors(options => options.AddPolicy("AllowFrontend", corsBuilder => corsBuilder
-    .WithOrigins(builder.Configuration["App:GatewayBasePath"])
+    .WithOrigins(builder.Configuration["App:LegacyAppBasePath"])
     .AllowCredentials()
     .AllowAnyHeader()
     .AllowAnyMethod()

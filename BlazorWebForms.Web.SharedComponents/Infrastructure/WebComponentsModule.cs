@@ -8,7 +8,7 @@ namespace BlazorWebForms.Web.SharedComponents.Infrastructure
         {
             services.AddScoped(sp => new HttpClient(new AuthenticationCookieHandler(new HttpClientHandler())) 
             {
-                BaseAddress = new Uri(configuration["App:GatewayBasePath"] ?? string.Empty)
+                BaseAddress = new Uri(configuration["App:NewAppBasePath"] ?? string.Empty)
             });
         }
     }

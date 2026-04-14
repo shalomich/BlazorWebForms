@@ -16,14 +16,14 @@ namespace BlazorWebForms.Web.Common.Web
 
         public string BuildLegacyAppUrl(string path)
         {
-            var baseUri = new Uri(appSettings.GatewayBasePath);
+            var baseUri = new Uri(appSettings.LegacyAppBasePath);
             return new Uri(baseUri, path).ToString();
         }
 
 
         public string BuildNewAppUrl(string path)
         {
-            var baseUri = new Uri(appSettings.GatewayBasePath);
+            var baseUri = new Uri(appSettings.NewAppBasePath);
             return new Uri($"{baseUri}new/{path}").ToString();
         }
     }
